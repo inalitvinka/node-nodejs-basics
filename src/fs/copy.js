@@ -10,26 +10,26 @@ const ERROR_CODE = 'ENOENT';
 const fileName = fileURLToPath(import.meta.url);
 const dirName = dirname(fileName);
 
-const dirExisting = async (dirPath) => {
-  let directoryExisting = true;
+const pathExists = async (path) => {
+  let pathExisting = true;
 
   try {
-    await access(dirPath);
+    await access(path);
   } catch (error) {
     if (error.code === ERROR_CODE) {
-      directoryExisting = false;
+      pathExisting = false;
     } else {
       console.error(error);
     }
   }
-  return directoryExisting;
+  return pathExisting;
 } 
 
 const copy = async () => {
   const srcPath = join(dirName , FOLDER_NAME);
   const destPath = join(dirName , DEST_FOLDER);
-  const srcExisting = await dirExisting(srcPath);
-  const destExisting = await dirExisting(destPath);
+  const srcExisting = await pathExists(srcPath);
+  const destExisting = await pathExists(destPath);
 
   if (!srcExisting || destExisting) {
     throw new Error(ERROR_MESSAGE);
