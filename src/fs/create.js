@@ -8,11 +8,11 @@ const FILE_CONTENT = 'I am fresh and young';
 const ERROR_MESSAGE = 'FS operation failed';
 const ERROR_CODE = 'EEXIST';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const fileName = fileURLToPath(import.meta.url);
+const dirName = dirname(fileName);
 
 const create = async () => {
-  const pathToFile = join(__dirname, FOLDER_NAME, FILE_NAME)
+  const pathToFile = join(dirName, FOLDER_NAME, FILE_NAME)
   try {
     await writeFile(pathToFile, FILE_CONTENT, { flag: 'wx' });
   } catch (error) {
