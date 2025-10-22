@@ -6,6 +6,7 @@ const FOLDER_NAME = 'files';
 const FILE_NAME = 'fresh.txt';
 const FILE_CONTENT = 'I am fresh and young';
 const ERROR_MESSAGE = 'FS operation failed';
+const ERROR_CODE = 'EEXIST';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -15,8 +16,8 @@ const create = async () => {
   try {
     await writeFile(pathToFile, FILE_CONTENT, { flag: 'wx' });
   } catch (error) {
-    console.log(error)
-    throw new Error(ERROR_MESSAGE);
+    const errorMessage = error.code === ERROR_CODE ? ERROR_MESSAGE : error.message;
+    throw new Error(errorMessage);
   }
   // try {
   //   await access(pathToFile);
