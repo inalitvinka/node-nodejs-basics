@@ -11,11 +11,11 @@ const ERROR_CODE = 'ENOENT';
 const fileName = fileURLToPath(import.meta.url);
 const dirName = dirname(fileName);
 
-const pathExists = async (dirPath) => {
+const pathExists = async (path) => {
   let pathExisting = true;
 
   try {
-    await fs.access(dirPath);
+    await fs.access(path);
   } catch (error) {
     if (error.code === ERROR_CODE) {
       pathExisting = false;
