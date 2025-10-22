@@ -1,6 +1,6 @@
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { writeFile, readFile, access } from 'fs/promises';
+import { writeFile } from 'fs/promises';
 
 const FOLDER_NAME = 'files';
 const FILE_NAME = 'fresh.txt';
@@ -19,16 +19,6 @@ const create = async () => {
     const errorMessage = error.code === ERROR_CODE ? ERROR_MESSAGE : error.message;
     throw new Error(errorMessage);
   }
-  // try {
-  //   await access(pathToFile);
-  //   throw new Error(ERROR_MESSAGE);
-  // } catch (error) {
-  //   if (error.code === 'ENOENT') {
-  //     await writeFile(pathToFile, FILE_CONTENT);
-  //   } else {
-  //     throw error;
-  //   }
-  // }
 };
 
 await create();
