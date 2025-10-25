@@ -2,6 +2,7 @@ import { createReadStream } from 'fs';
 import { join, dirname} from 'path';
 import { fileURLToPath } from 'url';
 import { createHash } from 'crypto';
+import { pipeline } from 'stream/promises';
 
 const FOLDER_NAME = 'files';
 const FILE_NAME = 'fileToCalculateHashFor.txt';
@@ -12,18 +13,14 @@ const dirName = dirname(fileName);
 
 const calculateHash = async () => {
   const filePath = join(dirName, FOLDER_NAME, FILE_NAME);
-  const stream = createReadStream(filePath);
   const hash = createHash(HASH_ALGO);
-  stream.on('data', (chunk) => {
-    hash.update(chunk);
-  });
-  stream.on('end', () => {
+  try {
+    await pipeline(createReadStream(filePath), hash);
     const result = hash.digest(OUTPUT_FORMAT);
     console.log(result);
-  });
-  stream.on('error', (error) => {
-    throw error;
-  });
+  } catch (error) {
+    console.error(error.message);
+  }
 };
 
 await calculateHash();
