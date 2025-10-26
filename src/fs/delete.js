@@ -9,9 +9,9 @@ const ERROR_CODE = 'ENOENT';
 
 const fileName = fileURLToPath(import.meta.url);
 const dirName = dirname(fileName);
+const filePath = join(dirName, FOLDER_NAME, FILE_TO_DELETE);
 
 const remove = async () => {
-  const filePath = join(dirName, FOLDER_NAME, FILE_TO_DELETE);
   try {
     await rm(filePath);
   } catch (error) {

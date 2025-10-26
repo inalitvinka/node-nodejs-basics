@@ -9,9 +9,9 @@ const ERROR_CODE = 'ENOENT';
 
 const fileName = fileURLToPath(import.meta.url);
 const dirName = dirname(fileName);
+const filePath = join(dirName, FOLDER_NAME, FILE_TO_READ);
 
 const read = async () => {
-  const filePath = join(dirName, FOLDER_NAME, FILE_TO_READ);
   try {
     const content = await readFile(filePath, 'utf-8');
     console.log(content);

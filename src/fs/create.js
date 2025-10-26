@@ -10,9 +10,9 @@ const ERROR_CODE = 'EEXIST';
 
 const fileName = fileURLToPath(import.meta.url);
 const dirName = dirname(fileName);
+const pathToFile = join(dirName, FOLDER_NAME, FILE_NAME);
 
 const create = async () => {
-  const pathToFile = join(dirName, FOLDER_NAME, FILE_NAME)
   try {
     await writeFile(pathToFile, FILE_CONTENT, { flag: 'wx' });
   } catch (error) {

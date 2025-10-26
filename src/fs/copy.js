@@ -1,33 +1,18 @@
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { cp, access } from 'fs/promises';
+import { cp } from 'fs/promises';
+import { pathExists } from '../utils/pathExists.mjs';
 
 const FOLDER_NAME = 'files';
 const DEST_FOLDER = 'files_copy';
 const ERROR_MESSAGE = 'FS operation failed';
-const ERROR_CODE = 'ENOENT';
 
 const fileName = fileURLToPath(import.meta.url);
 const dirName = dirname(fileName);
-
-const pathExists = async (path) => {
-  let pathExisting = true;
-
-  try {
-    await access(path);
-  } catch (error) {
-    if (error.code === ERROR_CODE) {
-      pathExisting = false;
-    } else {
-      console.error(error);
-    }
-  }
-  return pathExisting;
-} 
+const srcPath = join(dirName , FOLDER_NAME);
+const destPath = join(dirName , DEST_FOLDER);
 
 const copy = async () => {
-  const srcPath = join(dirName , FOLDER_NAME);
-  const destPath = join(dirName , DEST_FOLDER);
   const srcExisting = await pathExists(srcPath);
   const destExisting = await pathExists(destPath);
 
